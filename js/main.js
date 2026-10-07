@@ -150,25 +150,17 @@ document.addEventListener('DOMContentLoaded', () => {
     container.scrollTo({ left: Math.max(0, Math.min(maxLeft, targetLeft)), behavior: 'smooth' });
   };
 
-  // carrossel de fotos + depoimentos: avança sozinho a cada 2s, só no mobile
-  const communityGrid = document.getElementById('media-carousel');
-  if (communityGrid) {
+  // carrossel de fotos da comunidade: avança sozinho a cada 2s, só no mobile
+  const photoCarousel = document.getElementById('photo-carousel');
+  if (photoCarousel) {
     // só toque real do usuário pausa o autoplay — scroll programático (do próprio autoplay) não conta
     let lastManualTouch = 0;
-    communityGrid.addEventListener('touchstart', () => { lastManualTouch = Date.now(); }, { passive: true });
-    communityGrid.addEventListener('pointerdown', () => { lastManualTouch = Date.now(); }, { passive: true });
-    // enquanto um depoimento está tocando, o autoplay não atrapalha
-    let anyVideoPlaying = false;
-    communityGrid.querySelectorAll('video').forEach((v) => {
-      v.addEventListener('play', () => { anyVideoPlaying = true; });
-      v.addEventListener('pause', () => { anyVideoPlaying = false; });
-      v.addEventListener('ended', () => { anyVideoPlaying = false; });
-    });
+    photoCarousel.addEventListener('touchstart', () => { lastManualTouch = Date.now(); }, { passive: true });
+    photoCarousel.addEventListener('pointerdown', () => { lastManualTouch = Date.now(); }, { passive: true });
     setInterval(() => {
       if (!isMobileViewport()) return;
-      if (anyVideoPlaying) return;
       if (Date.now() - lastManualTouch < 3000) return;
-      carouselGoTo(communityGrid, carouselCurrentIndex(communityGrid) + 1);
+      carouselGoTo(photoCarousel, carouselCurrentIndex(photoCarousel) + 1);
     }, 2000);
   }
 
