@@ -233,6 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
     couponPopup.addEventListener('click', (e) => {
       if (e.target === couponPopup) hidePopup();
     });
+    // clicou no CTA do popup (vai rolar pra #interesse): fecha o popup pra não cobrir a seção
+    document.getElementById('coupon-popup-cta')?.addEventListener('click', hidePopup);
   }
 
 });

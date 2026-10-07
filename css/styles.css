@@ -525,10 +525,11 @@ a { color: inherit; text-decoration: none; }
 .media-carousel::-webkit-scrollbar { display: none; }
 .media-carousel > * { flex: 0 0 auto; scroll-snap-align: center; }
 .media-carousel .media-card {
-  width: min(260px, 70vw);
+  width: min(170px, 38vw);
   aspect-ratio: 3/4;
 }
-.media-carousel .testimonial-video { width: min(210px, 58vw); }
+.media-carousel .testimonial-video { width: min(130px, 30vw); }
+.media-carousel .testimonial-video figcaption { padding: 0.6rem 0.7rem; font-size: 0.78rem; }
 @media (max-width: 700px) {
   .media-carousel { padding: 0.5rem 1.5rem; margin-left: -1.5rem; margin-right: -1.5rem; }
 }
