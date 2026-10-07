@@ -483,12 +483,14 @@ a { color: inherit; text-decoration: none; }
 }
 /* flex, não posição absoluta: a seta fica sempre colada no carrossel de verdade,
    nunca flutuando sozinha numa área vazia quando o conteúdo é mais estreito que a seção */
-.carousel-wrap--always {
+.carousel-wrap--always,
+.carousel-wrap--single {
   display: flex;
   align-items: center;
   gap: 0.6rem;
 }
-.carousel-wrap--always .carousel-arrow {
+.carousel-wrap--always .carousel-arrow,
+.carousel-wrap--single .carousel-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -505,7 +507,8 @@ a { color: inherit; text-decoration: none; }
   line-height: 1;
   cursor: pointer;
 }
-.carousel-wrap--always .carousel-arrow:hover { background: var(--blue); color: var(--ink); }
+.carousel-wrap--always .carousel-arrow:hover,
+.carousel-wrap--single .carousel-arrow:hover { background: var(--blue); color: var(--ink); }
 .carousel-wrap--always .media-carousel {
   flex: 0 1 auto; /* não cresce pra preencher espaço vazio — só encolhe (e rola) se o conteúdo não couber */
   min-width: 0;
@@ -514,7 +517,24 @@ a { color: inherit; text-decoration: none; }
   .carousel-wrap--always .carousel-arrow { display: none; }
 }
 
-/* ---------- carrossel único: fotos da comunidade + depoimentos em vídeo, lado a lado ---------- */
+/* ---------- carrossel "um por vez": depoimentos em vídeo, grandes, com setas sempre visíveis ---------- */
+.carousel-wrap--single .media-carousel--single {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: min(360px, 82vw);
+  gap: 0;
+  padding: 0;
+  margin: 2rem 0 1.5rem;
+  scroll-snap-type: x mandatory;
+}
+.media-carousel.media-carousel--single > .testimonial-video {
+  flex: 0 0 100%;
+  width: 100%;
+  scroll-snap-align: center;
+}
+.media-carousel.media-carousel--single .testimonial-video video { aspect-ratio: 9/16; width: 100%; }
+
+/* ---------- carrossel de fotos da comunidade ---------- */
 .testimonials__eyebrow { margin-top: 1rem; }
 
 .media-carousel {
@@ -538,6 +558,10 @@ a { color: inherit; text-decoration: none; }
 .media-carousel .testimonial-video figcaption { padding: 0.6rem 0.7rem; font-size: 0.78rem; }
 @media (max-width: 700px) {
   .media-carousel { padding: 0.5rem 1.5rem; margin-left: -1.5rem; margin-right: -1.5rem; }
+  /* o carrossel "um por vez" fica ao lado das setas — não pode puxar margem negativa */
+  .media-carousel--single { padding: 0; margin-left: 0; margin-right: 0; }
+  .carousel-wrap--single { gap: 0.4rem; }
+  .carousel-wrap--single .carousel-arrow { width: 2rem; height: 2rem; font-size: 1.1rem; }
 }
 
 .testimonial-video {
